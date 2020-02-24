@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import './config/reactotronConfig';
 
+import Routes from './routes';
+
 const App = () => {
-  return <Text> Hmm ... Hellow ? </Text>;
+  return <Routes />;
 };
 
 export default App;
