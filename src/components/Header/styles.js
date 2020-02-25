@@ -25,8 +25,8 @@ export const Wrapper = styled(RectButton)`
 `;
 
 export const SizeCart = styled.Text`
-  background: ${colors.secund};
-  color: ${colors.third};
+  background: ${colors.third};
+  color: ${colors.fourth};
   width: 16px;
   height: 16px;
   border-radius: 8px;
@@ -41,5 +41,5 @@ export const ShoppingBasket = styled(Icon).attrs({
   name: 'shopping-basket',
   size: 24,
 })`
-  color: ${colors.third};
+  color: ${colors.fourth};
 `;
