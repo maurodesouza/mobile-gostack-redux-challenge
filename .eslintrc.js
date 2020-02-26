@@ -37,6 +37,7 @@ module.exports = {
     'no-console': [
       'warn',
       { allow: ['tron'] },
-    ]
+    ],
+    'react/prop-types': ['error', { 'ignore': ['navigation', 'navigate'] }]
   },
 };

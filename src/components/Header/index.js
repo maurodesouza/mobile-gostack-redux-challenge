@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Container, Logo, Wrapper, SizeCart, ShoppingBasket } from './styles';
@@ -17,6 +18,10 @@ const Header = ({ navigate, cartSize }) => {
       </Wrapper>
     </Container>
   );
+};
+
+Header.propTypes = {
+  cartSize: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ cart }) => ({

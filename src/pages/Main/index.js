@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import * as CartActions from '../../store/modules/cart/actions';
 import api from '../../services/api';
@@ -22,6 +23,10 @@ import {
 } from './styles';
 
 class Main extends Component {
+  static propTypes = {
+    addToCart: PropTypes.func.isRequired,
+  };
+
   state = {
     products: [],
   };
