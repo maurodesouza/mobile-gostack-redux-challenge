@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { call, select, put, all, takeLatest } from 'redux-saga/effects';
 
 import { formatPrice } from '../../../util/format';
@@ -13,7 +14,18 @@ function* addToCart({ id }) {
 
   const amountToUpdate = productExist ? productExist.amount + 1 : 0;
 
-  if (amountToUpdate > stockAmount) return null;
+  if (amountToUpdate > stockAmount)
+    return Alert.alert(
+      'Algo aconteceu !',
+      'Quantidade solicitada fora de estoque !',
+      [
+        {
+          text: 'Entendi !',
+          style: 'default',
+        },
+      ],
+      { cancelable: false }
+    );
 
   if (productExist) {
     return yield put(updateAmountSuccess(id, amountToUpdate));
@@ -36,8 +48,19 @@ function* updateAmount({ id, amount }) {
   const {
     data: { amount: stockAmount },
   } = yield call(api.get, `stock/${id}`);
-  console.tron.log(stockAmount);
-  if (amount > stockAmount) return null;
+
+  if (amount > stockAmount)
+    return Alert.alert(
+      'Algo aconteceu !',
+      'Quantidade solicitada fora de estoque !',
+      [
+        {
+          text: 'Entendi !',
+          style: 'default',
+        },
+      ],
+      { cancelable: false }
+    );
 
   return yield put(updateAmountSuccess(id, amount));
 }
