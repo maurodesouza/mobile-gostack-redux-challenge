@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { formatPrice } from '../../util/format';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import Container from '../../components/Container';
@@ -27,7 +28,7 @@ import {
   ButtonCheckoutText,
 } from './styles';
 
-const Cart = ({ cart, removeFromCart, updateAmountRequest }) => {
+const Cart = ({ cart, total, removeFromCart, updateAmountRequest }) => {
   const increment = ({ id, amount }) => {
     updateAmountRequest(id, amount + 1);
   };
@@ -43,7 +44,7 @@ const Cart = ({ cart, removeFromCart, updateAmountRequest }) => {
         ListFooterComponent={
           <>
             <TotalText>Total</TotalText>
-            <TotalPrice>R$234,90</TotalPrice>
+            <TotalPrice>{total}</TotalPrice>
             <ButtonCheckout>
               <ButtonCheckoutText>Finalizar Compra</ButtonCheckoutText>
             </ButtonCheckout>
@@ -68,7 +69,7 @@ const Cart = ({ cart, removeFromCart, updateAmountRequest }) => {
                 <IconRemove onPress={() => decrement(item)} />
               </WrapperFooterBox>
 
-              <WrapperPrice>{item.formattedPrice}</WrapperPrice>
+              <WrapperPrice>{item.subtotal}</WrapperPrice>
             </WrapperFooter>
           </Wrapper>
         )}
@@ -79,6 +80,7 @@ const Cart = ({ cart, removeFromCart, updateAmountRequest }) => {
 
 Cart.propTypes = {
   cart: PropTypes.instanceOf(Array).isRequired,
+  total: PropTypes.string.isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateAmountRequest: PropTypes.func.isRequired,
 };
@@ -87,7 +89,15 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
 const mapStateToProps = ({ cart }) => ({
-  cart,
+  cart: cart.map(product => ({
+    ...product,
+    subtotal: formatPrice(product.amount * product.price),
+  })),
+  total: formatPrice(
+    cart.reduce((total, product) => {
+      return total + product.amount * product.price;
+    }, 0)
+  ),
 });
 
 export default connect(
