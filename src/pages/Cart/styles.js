@@ -62,7 +62,9 @@ export const WrapperFooterBox = styled.View`
   align-items: center;
 `;
 
-export const WrapperFooterInput = styled.TextInput`
+export const WrapperFooterInput = styled.TextInput.attrs({
+  editable: false,
+})`
   background: ${colors.fourth};
   border: 1px solid #ddd;
   padding: 0 10px;
