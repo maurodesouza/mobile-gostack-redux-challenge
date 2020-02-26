@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import * as CartActions from '../../store/modules/cart/actions';
 
 import Container from '../../components/Container';
 import {
@@ -24,7 +27,7 @@ import {
   ButtonCheckoutText,
 } from './styles';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, removeFromCart }) => {
   return (
     <Container>
       <List
@@ -47,7 +50,7 @@ const Cart = ({ cart }) => {
                 <WrapperHeaderTitle>{item.title}</WrapperHeaderTitle>
                 <WrapperPrice>{item.formattedPrice}</WrapperPrice>
               </WrapperHeaderBox>
-              <IconDelete />
+              <IconDelete onPress={() => removeFromCart(item.id)} />
             </WrapperHeader>
 
             <WrapperFooter>
@@ -68,10 +71,17 @@ const Cart = ({ cart }) => {
 
 Cart.propTypes = {
   cart: PropTypes.instanceOf(Array).isRequired,
+  removeFromCart: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
 
 const mapStateToProps = ({ cart }) => ({
   cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
