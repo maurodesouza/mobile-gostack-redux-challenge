@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import * as CartActions from '../../store/modules/cart/actions';
 import api from '../../services/api';
+import { formatPrice } from '../../util/format';
 
 import Container from '../../components/Container';
 
@@ -32,7 +33,12 @@ class Main extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await api.get('/products');
+    const response = await api.get('/products');
+
+    const data = response.data.map(product => ({
+      ...product,
+      formattedPrice: formatPrice(product.price),
+    }));
 
     this.setState({ products: data });
   }
@@ -51,7 +57,7 @@ class Main extends Component {
             <Wrapper>
               <Image source={{ uri: item.image }} />
               <Title>{item.title}</Title>
-              <Price>{item.price}</Price>
+              <Price>{item.formattedPrice}</Price>
 
               <ButtonAddToCart onPress={() => addToCart(item)}>
                 <ButtonAddToCartWrapper>
