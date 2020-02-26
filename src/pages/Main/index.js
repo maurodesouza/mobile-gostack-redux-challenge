@@ -25,7 +25,7 @@ import {
 
 class Main extends Component {
   static propTypes = {
-    addToCart: PropTypes.func.isRequired,
+    addToCartRequest: PropTypes.func.isRequired,
   };
 
   state = {
@@ -45,7 +45,7 @@ class Main extends Component {
 
   render() {
     const { products } = this.state;
-    const { addToCart } = this.props;
+    const { addToCartRequest } = this.props;
 
     return (
       <Container>
@@ -59,7 +59,7 @@ class Main extends Component {
               <Title>{item.title}</Title>
               <Price>{item.formattedPrice}</Price>
 
-              <ButtonAddToCart onPress={() => addToCart(item)}>
+              <ButtonAddToCart onPress={() => addToCartRequest(item.id)}>
                 <ButtonAddToCartWrapper>
                   <IconShoppingCart />
                   <ButtonAddToCartAmount>1</ButtonAddToCartAmount>

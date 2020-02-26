@@ -56,7 +56,7 @@ const Cart = ({ cart, removeFromCart }) => {
             <WrapperFooter>
               <WrapperFooterBox>
                 <IconAdd />
-                <WrapperFooterInput value="1" />
+                <WrapperFooterInput value={String(item.amount)} />
                 <IconRemove />
               </WrapperFooterBox>
 
