@@ -26,6 +26,9 @@ import {
   TotalPrice,
   ButtonCheckout,
   ButtonCheckoutText,
+  EmptyCart,
+  EmptyCartText,
+  IconEmptyCart,
 } from './styles';
 
 const Cart = ({ cart, total, removeFromCart, updateAmountRequest }) => {
@@ -39,41 +42,48 @@ const Cart = ({ cart, total, removeFromCart, updateAmountRequest }) => {
 
   return (
     <Container>
-      <List
-        data={cart}
-        ListFooterComponent={
-          <>
-            <TotalText>Total</TotalText>
-            <TotalPrice>{total}</TotalPrice>
-            <ButtonCheckout>
-              <ButtonCheckoutText>Finalizar Compra</ButtonCheckoutText>
-            </ButtonCheckout>
-          </>
-        }
-        keyExtractor={({ id }) => String(id)}
-        renderItem={({ item }) => (
-          <Wrapper>
-            <WrapperHeader>
-              <WrapperHeaderImage source={{ uri: item.image }} />
-              <WrapperHeaderBox>
-                <WrapperHeaderTitle>{item.title}</WrapperHeaderTitle>
-                <WrapperPrice>{item.formattedPrice}</WrapperPrice>
-              </WrapperHeaderBox>
-              <IconDelete onPress={() => removeFromCart(item.id)} />
-            </WrapperHeader>
+      {cart.length ? (
+        <List
+          data={cart}
+          ListFooterComponent={
+            <>
+              <TotalText>Total</TotalText>
+              <TotalPrice>{total}</TotalPrice>
+              <ButtonCheckout>
+                <ButtonCheckoutText>Finalizar Compra</ButtonCheckoutText>
+              </ButtonCheckout>
+            </>
+          }
+          keyExtractor={({ id }) => String(id)}
+          renderItem={({ item }) => (
+            <Wrapper>
+              <WrapperHeader>
+                <WrapperHeaderImage source={{ uri: item.image }} />
+                <WrapperHeaderBox>
+                  <WrapperHeaderTitle>{item.title}</WrapperHeaderTitle>
+                  <WrapperPrice>{item.formattedPrice}</WrapperPrice>
+                </WrapperHeaderBox>
+                <IconDelete onPress={() => removeFromCart(item.id)} />
+              </WrapperHeader>
 
-            <WrapperFooter>
-              <WrapperFooterBox>
-                <IconAdd onPress={() => increment(item)} />
-                <WrapperFooterInput value={String(item.amount)} />
-                <IconRemove onPress={() => decrement(item)} />
-              </WrapperFooterBox>
+              <WrapperFooter>
+                <WrapperFooterBox>
+                  <IconAdd onPress={() => increment(item)} />
+                  <WrapperFooterInput value={String(item.amount)} />
+                  <IconRemove onPress={() => decrement(item)} />
+                </WrapperFooterBox>
 
-              <WrapperPrice>{item.subtotal}</WrapperPrice>
-            </WrapperFooter>
-          </Wrapper>
-        )}
-      />
+                <WrapperPrice>{item.subtotal}</WrapperPrice>
+              </WrapperFooter>
+            </Wrapper>
+          )}
+        />
+      ) : (
+        <EmptyCart>
+          <IconEmptyCart />
+          <EmptyCartText>Seu carrinho esta vazio !</EmptyCartText>
+        </EmptyCart>
+      )}
     </Container>
   );
 };

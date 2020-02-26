@@ -125,3 +125,25 @@ export const ButtonCheckoutText = styled.Text`
   font-family: Roboto-Bold;
   font-size: 14px;
 `;
+
+export const EmptyCart = styled.View`
+  background: ${colors.fourth};
+  border-radius: 5px;
+  margin: 0 10px;
+  align-items: center;
+  padding: 10px 0;
+`;
+
+export const EmptyCartText = styled.Text`
+  color: #333;
+  font-family: Roboto-Regular;
+  font-size: 20px;
+  margin-top: 10px;
+`;
+
+export const IconEmptyCart = styled(Icon).attrs({
+  name: 'remove-shopping-cart',
+  size: 120,
+})`
+  color: #ddd;
+`;
