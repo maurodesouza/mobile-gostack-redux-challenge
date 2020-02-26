@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
 import api from '../../services/api';
 
 import Container from '../../components/Container';
@@ -28,6 +30,15 @@ class Main extends Component {
     this.setState({ products: data });
   }
 
+  addToCart(product) {
+    const { dispatch } = this.props;
+
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
+  }
+
   render() {
     const { products } = this.state;
 
@@ -43,7 +54,7 @@ class Main extends Component {
               <Title>{item.title}</Title>
               <Price>{item.price}</Price>
 
-              <ButtonAddToCart>
+              <ButtonAddToCart onPress={() => this.addToCart(item)}>
                 <ButtonAddToCartWrapper>
                   <IconShoppingCart />
                   <ButtonAddToCartAmount>1</ButtonAddToCartAmount>
@@ -59,4 +70,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect()(Main);
