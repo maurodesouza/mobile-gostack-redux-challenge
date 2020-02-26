@@ -1,8 +1,10 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 import { Container, Logo, Wrapper, SizeCart, ShoppingBasket } from './styles';
 
-const Header = ({ navigate }) => {
+const Header = ({ navigate, cartSize }) => {
   return (
     <Container>
       <Wrapper onPress={() => navigate('Main')}>
@@ -11,10 +13,14 @@ const Header = ({ navigate }) => {
 
       <Wrapper onPress={() => navigate('Cart')}>
         <ShoppingBasket />
-        <SizeCart>1</SizeCart>
+        <SizeCart>{cartSize}</SizeCart>
       </Wrapper>
     </Container>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ cart }) => ({
+  cartSize: cart.length,
+});
+
+export default connect(mapStateToProps)(Header);
