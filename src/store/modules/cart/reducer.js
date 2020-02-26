@@ -14,6 +14,14 @@ const cart = (state = [], action) => {
           draft.splice(index, 1);
         }
       });
+    case '@cart/UPDATE_AMOUNT_SUCCESS':
+      return produce(state, draft => {
+        const index = draft.findIndex(({ id }) => id === action.id);
+
+        if (index >= 0) {
+          draft[index].amount = Number(action.amount);
+        }
+      });
     default:
       return state;
   }

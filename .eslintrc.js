@@ -31,6 +31,7 @@ module.exports = {
       'warn',
       { extensions: ['.jsx', '.js'] }
     ],
+    'no-param-reassign': 'off',
     'react/static-property-placement': 'off',
     'react/state-in-constructor': 'off',
     'import/prefer-default-export': 'off',

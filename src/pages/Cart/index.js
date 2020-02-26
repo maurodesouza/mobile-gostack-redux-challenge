@@ -27,7 +27,15 @@ import {
   ButtonCheckoutText,
 } from './styles';
 
-const Cart = ({ cart, removeFromCart }) => {
+const Cart = ({ cart, removeFromCart, updateAmountRequest }) => {
+  const increment = ({ id, amount }) => {
+    updateAmountRequest(id, amount + 1);
+  };
+
+  const decrement = ({ id, amount }) => {
+    updateAmountRequest(id, amount - 1);
+  };
+
   return (
     <Container>
       <List
@@ -55,9 +63,9 @@ const Cart = ({ cart, removeFromCart }) => {
 
             <WrapperFooter>
               <WrapperFooterBox>
-                <IconAdd />
+                <IconAdd onPress={() => increment(item)} />
                 <WrapperFooterInput value={String(item.amount)} />
-                <IconRemove />
+                <IconRemove onPress={() => decrement(item)} />
               </WrapperFooterBox>
 
               <WrapperPrice>{item.formattedPrice}</WrapperPrice>
@@ -72,6 +80,7 @@ const Cart = ({ cart, removeFromCart }) => {
 Cart.propTypes = {
   cart: PropTypes.instanceOf(Array).isRequired,
   removeFromCart: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch =>
