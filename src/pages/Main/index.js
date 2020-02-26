@@ -25,6 +25,7 @@ import {
 
 class Main extends Component {
   static propTypes = {
+    amount: PropTypes.instanceOf(Object).isRequired,
     addToCartRequest: PropTypes.func.isRequired,
   };
 
@@ -45,7 +46,7 @@ class Main extends Component {
 
   render() {
     const { products } = this.state;
-    const { addToCartRequest } = this.props;
+    const { addToCartRequest, amount } = this.props;
 
     return (
       <Container>
@@ -62,7 +63,9 @@ class Main extends Component {
               <ButtonAddToCart onPress={() => addToCartRequest(item.id)}>
                 <ButtonAddToCartWrapper>
                   <IconShoppingCart />
-                  <ButtonAddToCartAmount>1</ButtonAddToCartAmount>
+                  <ButtonAddToCartAmount>
+                    {amount[item.id] || 0}
+                  </ButtonAddToCartAmount>
                 </ButtonAddToCartWrapper>
 
                 <ButtonAddToCartText> Adicionar </ButtonAddToCartText>
@@ -75,10 +78,18 @@ class Main extends Component {
   }
 }
 
+const mapStateToProps = ({ cart }) => ({
+  amount: cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Main);
