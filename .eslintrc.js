@@ -24,6 +24,7 @@ module.exports = {
   plugins: [
     'react',
     'prettier',
+    'react-hooks',
   ],
   rules: {
     'prettier/prettier': 'error',
@@ -39,6 +40,9 @@ module.exports = {
       'warn',
       { allow: ['tron'] },
     ],
-    'react/prop-types': ['error', { 'ignore': ['navigation', 'navigate'] }]
+    'react/prop-types': ['error', { 'ignore': ['navigation', 'navigate'] }],
+
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };
