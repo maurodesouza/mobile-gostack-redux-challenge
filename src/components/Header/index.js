@@ -1,11 +1,12 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Container, Logo, Wrapper, SizeCart, ShoppingBasket } from './styles';
 
-const Header = ({ navigate, cartSize }) => {
+const Header = ({ navigate }) => {
+  const cartSize = useSelector(({ cart }) => cart.length);
+
   return (
     <Container>
       <Wrapper onPress={() => navigate('Main')}>
@@ -20,12 +21,4 @@ const Header = ({ navigate, cartSize }) => {
   );
 };
 
-Header.propTypes = {
-  cartSize: PropTypes.number.isRequired,
-};
-
-const mapStateToProps = ({ cart }) => ({
-  cartSize: cart.length,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
