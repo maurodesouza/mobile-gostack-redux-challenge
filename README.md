@@ -38,8 +38,8 @@ O desafio do 7° módulo foi criar uma interface para mobile, de um ecommerce on
 <br>
 
 <div align="center">
-  <img src="./.github/app.svg" width="150" alt="Rocketshoes app">
-  <img src="./.github/cart.svg" width="150" alt="Rocketshoes cart">
+  <img src="./.github/app.svg" width="250" alt="Rocketshoes app">
+  <img src="./.github/cart.svg" width="250" alt="Rocketshoes cart">
 </div>
 
 <br>
